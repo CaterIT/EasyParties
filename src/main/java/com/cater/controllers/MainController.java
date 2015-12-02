@@ -41,7 +41,11 @@ public class MainController {
 	// opens CatererRegistration page
 	@RequestMapping(value = "/CatererRegistration", method = RequestMethod.GET)
 	public String hello() {
-
+		try{
+		userservice.saveUser();
+		}catch(Exception e){
+			logger.error(e.getLocalizedMessage());
+		}
 		return "CatererRegistration";
 	}
 

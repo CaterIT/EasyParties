@@ -4,10 +4,18 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class User {
+	private Long userId;
 	private String userName;
 	private String firstName;
 	private String lastName;
 	private String email;
+	
+	public Long getUserId() {
+		return userId;
+	}
+	public void setUserId(Long userId) {
+		this.userId = userId;
+	}
 	public String getUserName() {
 		return userName;
 	}
