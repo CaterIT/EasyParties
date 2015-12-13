@@ -32,11 +32,12 @@
 <link rel="stylesheet" href="resources/css/responsive.css"
 	rel="stylesheet">
 <link rel="stylesheet" href="resources/css/custom.css" rel="stylesheet">
-<!-- Google Fonts-->
+<!-- Google Fonts
 <link href="http://fonts.googleapis.com/css?family=Roboto:400,300"
 	rel="stylesheet" type="text/css">
 <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300"
 	rel="stylesheet" type="text/css">
+	-->
 </head>
 <body>
 	<div id="pre_header" class="container">
