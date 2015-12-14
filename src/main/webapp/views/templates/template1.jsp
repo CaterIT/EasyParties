@@ -5,13 +5,11 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE HTML>
 <!-- === BEGIN HEADER === -->
-<!DOCTYPE html>
 <!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->
 <!--[if IE 9]> <html lang="en" class="ie9"> <![endif]-->
 <!--[if !IE]><!-->
 <html lang="en">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>BookParty template - <decorator:title /></title>
 <!-- Meta -->
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
@@ -22,24 +20,43 @@
 <!-- Favicon -->
 <link href="favicon.ico" rel="shortcut icon">
 <!-- Bootstrap Core CSS -->
-<link rel="stylesheet" href="resources/css/bootstrap.css"
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap.css"
 	rel="stylesheet">
 <!-- Template CSS -->
-<link rel="stylesheet" href="resources/css/animate.css" rel="stylesheet">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/animate.css" rel="stylesheet">
 <link rel="stylesheet" href="resources/css/font-awesome.css"
 	rel="stylesheet">
-<link rel="stylesheet" href="resources/css/nexus.css" rel="stylesheet">
-<link rel="stylesheet" href="resources/css/responsive.css"
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/nexus.css" rel="stylesheet">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/responsive.css"
 	rel="stylesheet">
-<link rel="stylesheet" href="resources/css/custom.css" rel="stylesheet">
 <!-- Google Fonts
 <link href="http://fonts.googleapis.com/css?family=Roboto:400,300"
 	rel="stylesheet" type="text/css">
 <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300"
 	rel="stylesheet" type="text/css">
 	-->
+	
 </head>
 <body>
+	
+	<!-- JS -->
+            <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery.min.js" type="text/javascript"></script>
+            <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/bootstrap.min.js" type="text/javascript"></script>
+            <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/scripts.js"></script>
+            <!-- Isotope - Portfolio Sorting -->
+            <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery.isotope.js" type="text/javascript"></script>
+            <!-- Mobile Menu - Slicknav -->
+            <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery.slicknav.js" type="text/javascript"></script>
+            <!-- Animate on Scroll-->
+            <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery.visible.js" charset="utf-8"></script>
+            <!-- Sticky Div -->
+            <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery.sticky.js" charset="utf-8"></script>
+            <!-- Slimbox2-->
+            <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/slimbox2.js" charset="utf-8"></script>
+            <!-- Modernizr -->
+            <script src="${pageContext.request.contextPath}/resources/js/modernizr.custom.js" type="text/javascript"></script>
+            <!-- End JS -->
+          
 	<div id="pre_header" class="container">
 		<div class="row margin-top-10 visible-lg">
 			<div class="col-md-6">
@@ -68,7 +85,7 @@
 					<!-- Logo -->
 					<div class="logo">
 						<a href="index.html" title=""> <img
-							src="resources/images/logo.png" alt="Logo" />
+							src="${pageContext.request.contextPath}/resources/images/logo.png" alt="Logo" />
 						</a>
 					</div>
 					<!-- End Logo -->
@@ -197,5 +214,6 @@
 		</div>
 	</div>
 	<!-- End Footer Menu -->
+
 </body>
 </html>
