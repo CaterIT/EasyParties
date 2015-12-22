@@ -18,12 +18,15 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.cater.services.UserService;
 import com.cater.tos.beans.User;
+import com.cater.utils.MailUtil;
 
 @Controller
 public class MainController {
-	
+
 	@Autowired
 	UserService userservice;
+	@Autowired
+	MailUtil mailUtil;
 
 	protected Logger logger = LoggerFactory.getLogger(MainController.class);
 	
@@ -65,4 +68,10 @@ public class MainController {
 		}
 	}
 
+	// check mail
+	@RequestMapping(value = "/template/mail", method = RequestMethod.GET)
+	public String checkMail() {
+		mailUtil.sendEmail("armaankohli91@gmail.com", "Armaan");
+		return "CatererRegistration";
+	}
 }
