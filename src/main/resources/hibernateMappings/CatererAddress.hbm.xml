@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Dec 24, 2015 12:22:57 AM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="com.cater.tos.beans.CatererAddress" table="caterer_address" catalog="bpodb" optimistic-lock="version">
+        <id name="id" type="java.lang.Long">
+            <column name="id" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="addressDetails" class="com.cater.tos.beans.AddressDetails" fetch="select">
+            <column name="address_id" not-null="true" />
+        </many-to-one>
+        <many-to-one name="caterer" class="com.cater.tos.beans.Caterer" fetch="select">
+            <column name="caterer_id" not-null="true" />
+        </many-to-one>
+        <property name="isDeleted" type="boolean">
+            <column name="is_deleted" not-null="true" />
+        </property>
+        <property name="lat" type="string">
+            <column name="lat" length="45" />
+        </property>
+        <property name="lng" type="string">
+            <column name="lng" length="45" />
+        </property>
+    </class>
+</hibernate-mapping>

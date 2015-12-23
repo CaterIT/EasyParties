@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Dec 24, 2015 12:22:57 AM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="com.cater.tos.beans.Caterer" table="caterer" catalog="bpodb" optimistic-lock="version">
+        <id name="catererId" type="java.lang.Long">
+            <column name="caterer_id" />
+            <generator class="identity" />
+        </id>
+        <property name="displayName" type="string">
+            <column name="display_name" length="100" />
+        </property>
+        <property name="name" type="string">
+            <column name="name" length="100" />
+        </property>
+        <property name="ownerName" type="string">
+            <column name="owner_name" length="100" />
+        </property>
+        <property name="isDeleted" type="boolean">
+            <column name="is_deleted" not-null="true" />
+        </property>
+        <property name="username" type="string">
+            <column name="username" length="45" not-null="true" />
+        </property>
+        <property name="password" type="string">
+            <column name="password" length="45" not-null="true" />
+        </property>
+        <set name="catererLineContacts" table="caterer_line_contact" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="caterer_id" not-null="true" />
+            </key>
+            <one-to-many class="com.cater.tos.beans.CatererLineContact" />
+        </set>
+        <set name="catererAddresses" table="caterer_address" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="caterer_id" not-null="true" />
+            </key>
+            <one-to-many class="com.cater.tos.beans.CatererAddress" />
+        </set>
+    </class>
+</hibernate-mapping>

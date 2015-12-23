@@ -20,8 +20,14 @@
 		<property name="connection.pool_size">1</property>
 		<property name="current_session_context_class">thread</property>
 
-		<mapping resource="com/cater/hibernateMappings/User.hbm.xml"></mapping>
-		<mapping resource="com/cater/hibernateMappings/Caterer.hbm.xml"></mapping>
+		<mapping resource="hibernateMappings/User.hbm.xml"></mapping>
+		<mapping resource="hibernateMappings/Caterer.hbm.xml"></mapping>
+		<mapping resource="hibernateMappings/CatererAddress.hbm.xml" />
+		<mapping resource="hibernateMappings/MasterCity.hbm.xml" />
+		<mapping resource="hibernateMappings/CatererLineContact.hbm.xml" />
+		<mapping resource="hibernateMappings/MasterState.hbm.xml" />
+		<mapping resource="hibernateMappings/MasterCountry.hbm.xml" />
+		<mapping resource="hibernateMappings/AddressDetails.hbm.xml" />
 
 	</session-factory>
 </hibernate-configuration>

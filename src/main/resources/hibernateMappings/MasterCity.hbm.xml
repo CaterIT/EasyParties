@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Dec 24, 2015 12:22:57 AM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="com.cater.tos.beans.MasterCity" table="master_city" catalog="bpodb" optimistic-lock="version">
+        <id name="cityId" type="java.lang.Long">
+            <column name="city_id" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="masterState" class="com.cater.tos.beans.MasterState" fetch="select">
+            <column name="state_id" />
+        </many-to-one>
+        <property name="cityName" type="string">
+            <column name="city_name" length="100" not-null="true" />
+        </property>
+        <property name="visible" type="boolean">
+            <column name="visible" not-null="true" />
+        </property>
+        <set name="addressDetailses" table="address_details" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="city_id" />
+            </key>
+            <one-to-many class="com.cater.tos.beans.AddressDetails" />
+        </set>
+    </class>
+</hibernate-mapping>

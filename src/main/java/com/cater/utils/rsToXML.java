@@ -57,9 +57,9 @@ public class rsToXML
 		for(Caterer c:cater)
 		{
 			Element row = doc.createElement("marker");
-				row.setAttribute("lat", c.getLat());
-				row.setAttribute("lng", c.getLng());
-				row.setAttribute("address", c.getAddress());
+//				row.setAttribute("lat", c.getLat());
+//				row.setAttribute("lng", c.getLng());
+//				row.setAttribute("address", c.getAddress());
 				row.setAttribute("name", c.getName());
 				results.appendChild(row);
 		}
