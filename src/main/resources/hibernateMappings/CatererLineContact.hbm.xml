@@ -3,12 +3,12 @@
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <!-- Generated Dec 24, 2015 12:22:57 AM by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
-    <class name="com.cater.tos.beans.CatererLineContact" table="caterer_line_contact" catalog="bpodb" optimistic-lock="version">
+    <class name="com.cater.dto.beans.CatererLineContact" table="caterer_line_contact" catalog="bpodb" optimistic-lock="version">
         <id name="id" type="java.lang.Long">
             <column name="id" />
             <generator class="identity" />
         </id>
-        <many-to-one name="caterer" class="com.cater.tos.beans.Caterer" fetch="select">
+        <many-to-one name="caterer" class="com.cater.dto.beans.Caterer" fetch="select">
             <column name="caterer_id" not-null="true" />
         </many-to-one>
         <property name="type" type="string">

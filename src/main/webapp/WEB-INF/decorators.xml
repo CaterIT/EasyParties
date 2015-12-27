@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <decorators defaultdir="/views/templates">
     <decorator name="main" page="template1.jsp">
-       <pattern>/template*</pattern>
+       <pattern>/*</pattern>
     </decorator>
 </decorators>

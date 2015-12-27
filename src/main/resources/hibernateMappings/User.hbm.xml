@@ -3,7 +3,7 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 
 <hibernate-mapping>
-    <class name="com.cater.tos.beans.User" table="user" catalog="bpodb">
+    <class name="com.cater.dto.beans.User" table="user" catalog="bpodb">
         <id name="userId" type="java.lang.Long">
             <column name="user_id" />
             <generator class="increment" />

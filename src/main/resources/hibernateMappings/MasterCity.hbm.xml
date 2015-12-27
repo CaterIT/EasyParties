@@ -3,12 +3,12 @@
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <!-- Generated Dec 24, 2015 12:22:57 AM by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
-    <class name="com.cater.tos.beans.MasterCity" table="master_city" catalog="bpodb" optimistic-lock="version">
+    <class name="com.cater.dto.beans.MasterCity" table="master_city" catalog="bpodb" optimistic-lock="version">
         <id name="cityId" type="java.lang.Long">
             <column name="city_id" />
             <generator class="identity" />
         </id>
-        <many-to-one name="masterState" class="com.cater.tos.beans.MasterState" fetch="select">
+        <many-to-one name="masterState" class="com.cater.dto.beans.MasterState" fetch="select">
             <column name="state_id" />
         </many-to-one>
         <property name="cityName" type="string">
@@ -21,7 +21,7 @@
             <key>
                 <column name="city_id" />
             </key>
-            <one-to-many class="com.cater.tos.beans.AddressDetails" />
+            <one-to-many class="com.cater.dto.beans.AddressDetails" />
         </set>
     </class>
 </hibernate-mapping>

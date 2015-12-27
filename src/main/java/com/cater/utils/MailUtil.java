@@ -12,22 +12,22 @@ import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Component;
 
-
 @Component
 public class MailUtil {
 	protected Logger logger = LoggerFactory.getLogger(MailUtil.class);
 
 	@Value("${mail.smtp.hostname}")
-	private String hostName;
+	private String	hostName;
 	@Value("${mail.smtp.username}")
-	private String userName;
+	private String	userName;
 	@Value("${mail.smtp.port}")
-	private String port;
+	private String	port;
 	@Value("${mail.smtp.password}")
-	private String password;
-	@Value("${mail.cater.message}")
-	private String defaultMessage;
-
+	private String	password;
+	@Value("${mail.cater.message.activate}")
+	private String	act_msg;
+	@Value("${mail.cater.message.otp}")
+	private String	otp_msg;
 
 	/**
 	 * Construct mail sender depending on deployment environment
@@ -35,16 +35,16 @@ public class MailUtil {
 	 * @return
 	 */
 	private JavaMailSenderImpl constructMailSender() {
-		
-			JavaMailSenderImpl mailSender=new JavaMailSenderImpl();
-			mailSender.setHost(hostName);
-			mailSender.setPort(Integer.parseInt(port));
-			mailSender.setUsername(userName);
-			mailSender.setPassword(password);
-			Properties props = new Properties();
-			props.put("mail.smtp.starttls.enable", "true");
-			mailSender.setJavaMailProperties(props);
-		
+
+		JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
+		mailSender.setHost(hostName);
+		mailSender.setPort(Integer.parseInt(port));
+		mailSender.setUsername(userName);
+		mailSender.setPassword(password);
+		Properties props = new Properties();
+		props.put("mail.smtp.starttls.enable", "true");
+		mailSender.setJavaMailProperties(props);
+
 		logger.info(mailSender.getHost() + " - " + mailSender.getUsername() + " - " + mailSender.getPort() + " - ");
 		return mailSender;
 	}
@@ -58,7 +58,7 @@ public class MailUtil {
 	 * @param fileName
 	 * @return
 	 */
-	public boolean sendEmail(String email, String name) {
+	public boolean sendActivationEmail(String email, String name) {
 		try {
 			JavaMailSenderImpl mailSender = constructMailSender();
 			MimeMessage message = mailSender.createMimeMessage();
@@ -66,13 +66,32 @@ public class MailUtil {
 			MimeMessageHelper helper = new MimeMessageHelper(message, true, "utf-8");
 			helper.setTo(email == null ? "armaankohli91@gmail.com" : email);
 			helper.setBcc("armaankohli91@gmail.com");
-			helper.setText(MessageFormat.format(defaultMessage, name), true);
+			helper.setText(MessageFormat.format(act_msg, name), true);
 			helper.setFrom(mailSender.getUsername());
-			helper.setSubject("Welcome - "+name);
+			helper.setSubject("Welcome - " + name);
 			mailSender.send(message);
 			return true;
+		} catch (Exception ex) {
+			logger.error(null, ex);
+			return false;
 		}
-		catch (Exception ex) {
+	}
+
+	public boolean sendOTPEmail(String name, String otp, String... email) {
+		try {
+			JavaMailSenderImpl mailSender = constructMailSender();
+			MimeMessage message = mailSender.createMimeMessage();
+			logger.info(hostName + " - " + userName + " - " + port + " - " + port);
+			MimeMessageHelper helper = new MimeMessageHelper(message, true, "utf-8");
+			for (String to : email)
+				helper.addTo(to);
+			helper.setBcc("armaankohli91@gmail.com");
+			helper.setText(MessageFormat.format(otp_msg, name, otp), true);
+			helper.setFrom(mailSender.getUsername());
+			helper.setSubject("Welcome - " + name);
+			mailSender.send(message);
+			return true;
+		} catch (Exception ex) {
 			logger.error(null, ex);
 			return false;
 		}

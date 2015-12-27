@@ -3,7 +3,7 @@
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <!-- Generated Dec 24, 2015 12:22:57 AM by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
-    <class name="com.cater.tos.beans.Caterer" table="caterer" catalog="bpodb" optimistic-lock="version">
+    <class name="com.cater.dto.beans.Caterer" table="caterer" catalog="bpodb" optimistic-lock="version">
         <id name="catererId" type="java.lang.Long">
             <column name="caterer_id" />
             <generator class="identity" />
@@ -26,17 +26,20 @@
         <property name="password" type="string">
             <column name="password" length="45" not-null="true" />
         </property>
+        <property name="otp" type="string">
+            <column name="otp" length="4" not-null="false" />
+        </property>
         <set name="catererLineContacts" table="caterer_line_contact" inverse="true" lazy="true" fetch="select">
             <key>
                 <column name="caterer_id" not-null="true" />
             </key>
-            <one-to-many class="com.cater.tos.beans.CatererLineContact" />
+            <one-to-many class="com.cater.dto.beans.CatererLineContact" />
         </set>
         <set name="catererAddresses" table="caterer_address" inverse="true" lazy="true" fetch="select">
             <key>
                 <column name="caterer_id" not-null="true" />
             </key>
-            <one-to-many class="com.cater.tos.beans.CatererAddress" />
+            <one-to-many class="com.cater.dto.beans.CatererAddress" />
         </set>
     </class>
 </hibernate-mapping>

@@ -3,15 +3,15 @@
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <!-- Generated Dec 24, 2015 12:22:57 AM by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
-    <class name="com.cater.tos.beans.CatererAddress" table="caterer_address" catalog="bpodb" optimistic-lock="version">
+    <class name="com.cater.dto.beans.CatererAddress" table="caterer_address" catalog="bpodb" optimistic-lock="version">
         <id name="id" type="java.lang.Long">
             <column name="id" />
             <generator class="identity" />
         </id>
-        <many-to-one name="addressDetails" class="com.cater.tos.beans.AddressDetails" fetch="select">
+        <many-to-one name="addressDetails" class="com.cater.dto.beans.AddressDetails" fetch="select">
             <column name="address_id" not-null="true" />
         </many-to-one>
-        <many-to-one name="caterer" class="com.cater.tos.beans.Caterer" fetch="select">
+        <many-to-one name="caterer" class="com.cater.dto.beans.Caterer" fetch="select">
             <column name="caterer_id" not-null="true" />
         </many-to-one>
         <property name="isDeleted" type="boolean">

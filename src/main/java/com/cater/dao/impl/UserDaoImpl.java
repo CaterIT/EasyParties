@@ -12,8 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.cater.dao.UserDao;
-import com.cater.tos.beans.Caterer;
-import com.cater.tos.beans.User;
+import com.cater.dto.beans.Caterer;
+import com.cater.dto.beans.User;
 
 /**
  * @author armaank
