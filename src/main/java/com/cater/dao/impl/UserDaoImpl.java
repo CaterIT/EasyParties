@@ -12,8 +12,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.cater.dao.UserDao;
-import com.cater.tos.beans.Caterer;
-import com.cater.tos.beans.User;
+import com.cater.dto.beans.CaterDb;
+import com.cater.dto.beans.Caterer;
+import com.cater.dto.beans.User;
 
 /**
  * @author armaank
@@ -30,11 +31,5 @@ public class UserDaoImpl implements UserDao {
 		session.save(user);
 		session.getTransaction().commit();
 		session.close();
-	}
-	public List<Caterer> getCaterers(){
-
-		Session session=sessionFactory.openSession();
-		Criteria c=session.createCriteria(Caterer.class);
-		return c.list();
 	}
 }

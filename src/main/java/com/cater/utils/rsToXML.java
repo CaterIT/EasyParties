@@ -1,7 +1,5 @@
 package com.cater.utils;
 import java.io.StringWriter;
-import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -17,14 +15,15 @@ import javax.xml.transform.stream.StreamResult;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-import com.cater.tos.beans.Caterer;
+import com.cater.dto.beans.Caterer;
+import com.cater.dto.beans.CaterDb;
 
 
 public class rsToXML 
 {
-	public static String getXML(List<Caterer> c) throws ParserConfigurationException, SQLException, Exception
+	public static String getXML(List<Caterer> l) throws ParserConfigurationException, SQLException, Exception
 	{
-		Document DOMparser = toDocument(c);
+		Document DOMparser = toDocument(l);
 		return getStringFromDocument(DOMparser);
 	}
 	public static String getStringFromDocument(Document doc)
@@ -45,23 +44,29 @@ public class rsToXML
 	       return null;
 	    }
 	} 
+	
 	public static Document toDocument(List<Caterer> cater) throws ParserConfigurationException, SQLException
-{
+	{
 		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 		DocumentBuilder builder        = factory.newDocumentBuilder();
 		Document doc                   = builder.newDocument();
 
 		Element results = doc.createElement("markers");
-		doc.appendChild(results);
+		int i=0;
 
-		for(Caterer c:cater)
+		for(Object c:cater)
 		{
 			Element row = doc.createElement("marker");
-				row.setAttribute("lat", c.getLat());
-				row.setAttribute("lng", c.getLng());
-				row.setAttribute("address", c.getAddress());
-				row.setAttribute("name", c.getName());
+			Object[] x = (Object[]) c;
+				row.setAttribute("lat", String.valueOf(x[4]));
+				row.setAttribute("lng", String.valueOf(x[5]));
+								row.setAttribute("address", String.valueOf(x[6]));
+								row.setAttribute("name", String.valueOf(x[0]));
+								row.setAttribute("distance", String.valueOf(x[2]));
 				results.appendChild(row);
+			
 		}
+		doc.appendChild(results);
 		return doc;
-			}}
+		}
+}
