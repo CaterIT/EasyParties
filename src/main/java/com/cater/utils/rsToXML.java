@@ -1,7 +1,5 @@
 package com.cater.utils;
 import java.io.StringWriter;
-import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -29,7 +27,6 @@ public class rsToXML
 	}
 	public static String getStringFromDocument(Document doc)
 	{
-		System.out.println("Teesting commit Changes by Siddharth");
 	    try
 	    {
 	       DOMSource domSource = new DOMSource(doc);
