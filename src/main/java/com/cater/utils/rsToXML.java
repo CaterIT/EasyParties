@@ -29,6 +29,7 @@ public class rsToXML
 	}
 	public static String getStringFromDocument(Document doc)
 	{
+		System.out.println("Teesting commit Changes by Siddharth");
 	    try
 	    {
 	       DOMSource domSource = new DOMSource(doc);
