@@ -11,6 +11,9 @@ import com.cater.dto.beans.Caterer;
  */
 public class CatererConverter {
 	public Caterer convertToDto(com.cater.tos.beans.Caterer caterer) {
+		if(caterer==null){
+			return null;
+		}
 		Caterer converted = new Caterer();
 		converted.setCatererId(caterer.getCatererId());
 		converted.setDisplayName(caterer.getDisplayName());
@@ -22,6 +25,9 @@ public class CatererConverter {
 	}
 
 	public com.cater.tos.beans.Caterer convertFromDto(Caterer caterer) {
+		if(caterer==null){
+			return null;
+		}
 		com.cater.tos.beans.Caterer converted = new com.cater.tos.beans.Caterer();
 		converted.setCatererId(caterer.getCatererId());
 		converted.setDisplayName(caterer.getDisplayName());

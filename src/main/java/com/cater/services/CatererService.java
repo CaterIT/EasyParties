@@ -26,4 +26,10 @@ public class CatererService {
 		return catererDao.saveCaterer(catererDto);
 		
 	}
+	public Caterer getCatererByUserNameNOTP(String uname,String otp) {
+		Caterer c=new CatererConverter().convertFromDto(catererDao.getCatererByUserName(uname,otp));
+		
+		return c;
+		
+	}
 }

@@ -12,4 +12,5 @@ import com.cater.dto.beans.Caterer;
 public interface CatererDao {
 
 	public boolean saveCaterer(Caterer caterer);
+	public Caterer getCatererByUserName(String caterer, String otp);
 }
