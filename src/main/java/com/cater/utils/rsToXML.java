@@ -52,14 +52,26 @@ public class rsToXML
 		Element results = doc.createElement("markers");
 		doc.appendChild(results);
 
-		for(Caterer c:cater)
+		for(Object c:cater)
 		{
 			Element row = doc.createElement("marker");
-//				row.setAttribute("lat", c.getLat());
-//				row.setAttribute("lng", c.getLng());
-//				row.setAttribute("address", c.getAddress());
-				row.setAttribute("name", c.getName());
+			Object[] x = (Object[]) c;
+				row.setAttribute("lat", String.valueOf(x[4]));
+				row.setAttribute("lng", String.valueOf(x[5]));
+								row.setAttribute("address", String.valueOf(x[6]));
+								row.setAttribute("name", String.valueOf(x[0]));
+								row.setAttribute("distance", String.valueOf(x[2]));
 				results.appendChild(row);
+			
 		}
+//		for(Caterer c:cater)
+//		{
+//			Element row = doc.createElement("marker");
+////				row.setAttribute("lat", c.getLat());
+////				row.setAttribute("lng", c.getLng());
+////				row.setAttribute("address", c.getAddress());
+//				row.setAttribute("name", c.getName());
+//				results.appendChild(row);
+//		}
 		return doc;
-			}}
+		}}

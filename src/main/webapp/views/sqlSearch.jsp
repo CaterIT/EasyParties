@@ -8,18 +8,15 @@
 	<script
 		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDq5GAE3tOpXqt2ig9jXSYOh5PUx1tPTCU"
 		type="text/javascript"></script>
-	<div>
-		<input type="text" id="addressInput" size="10" /> <select
-			id="radiusSelect">
-			<option value="25" selected>25mi</option>
-			<option value="100">100mi</option>
-			<option value="200">200mi</option>
-		</select> <input type="button" onclick="searchLocations()" value="Search" />
+	<div align="CENTER">
+		<input type="text" id="addressInput" size="30" /> 
+		<input type="text" id="radiusSelect" size="10"/> 
+		<input type="button" onclick="searchLocations()" value="Search" />
 	</div>
-	<div>
-		<select id="locationSelect" style="width: 100%; visibility: hidden"></select>
+	<div align="CENTER">
+		<select id="locationSelect" style="width: 500px; visibility: hidden"></select>
 	</div>
-	<div id="map" style="width: 1000px; height: 600px"></div>
+	<div align="CENTER" id="map" style="width: 500px; height: 200px"></div>
 
 	<script>
 		var map;
@@ -79,7 +76,8 @@
 
 			var radius = document.getElementById('radiusSelect').value;
 			/*  var searchUrl = 'phpsqlsearch_genxml.php?lat=' + center.lat() + '&lng=' + center.lng() + '&radius=' + radius;  */
-			var searchUrl = "${pageContext.request.contextPath}"+'/GoogleQuerySearch';
+			var searchUrl = "${pageContext.request.contextPath}"+'/GoogleQuerySearch?lat='+ center.lat() + '&lng=' + center.lng() + '&radius=' + radius;
+			console.log(searchUrl);
 			downloadUrl(
 					searchUrl,
 					function(data) {
@@ -100,7 +98,7 @@
 											.getAttribute("lng")));
 
 							createOption(name, distance, i);
-							createMarker(latlng, name, address);
+							createMarker(latlng, name, address, parseFloat(markerNodes[i].getAttribute("lat")),parseFloat(markerNodes[i].getAttribute("lng")) );
 							bounds.extend(latlng);
 						}
 						map.fitBounds(bounds);
@@ -113,14 +111,16 @@
 					});
 		}
 
-		function createMarker(latlng, name, address) {
+		function createMarker(latlng, name, address, lat, lng) {
 			var html = "<b>" + name + "</b> <br/>" + address;
 			var marker = new google.maps.Marker({
 				map : map,
-				position : latlng
+				position : latlng,
+				url: "${pageContext.request.contextPath}"+'/CaterInfo?id=' + name + '&lat=' + lat + '&lng=' + lng
 			});
 			google.maps.event.addListener(marker, 'click', function() {
 				infoWindow.setContent(html);
+				window.location.href = marker.url;
 				infoWindow.open(map, marker);
 			});
 			markers.push(marker);

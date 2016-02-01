@@ -11,22 +11,17 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ExtendedModelMap;
-import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.cater.tos.beans.Caterer;
-import com.cater.tos.beans.CatererLineContact;
-import com.cater.tos.beans.User;
 import com.cater.services.CatererService;
 import com.cater.services.UserService;
+import com.cater.tos.beans.Caterer;
+import com.cater.tos.beans.CatererLineContact;
 import com.cater.utils.GeneralUtils;
 import com.cater.utils.MailUtil;
 
@@ -74,9 +69,9 @@ public class MainController {
 		return "sqlSearch";
 	}
 	@RequestMapping(value = "/GoogleQuerySearch", method = RequestMethod.GET)
-	public @ResponseBody String querySearch() {
+	public @ResponseBody String querySearch(@RequestParam("lat") String lat, @RequestParam("lng") String lng, @RequestParam("radius") String radius) {
 		try {
-			return userservice.getCaterer();
+			return catererService.getCaters(lat, lng, radius);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -84,6 +79,35 @@ public class MainController {
 		}
 	}
 
+	@RequestMapping(value = "/getCaterDescription", method = RequestMethod.POST)
+//	public @ResponseBody Caterer querySearch(@RequestParam("id") String id) {
+	public @ResponseBody String queryDescription(@RequestParam("q") String id) {
+		try {
+			return catererService.getCaterDescription(id);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return "sqlSearch";
+		}
+	}
+
+	@RequestMapping(value = "/CaterInfo", method = RequestMethod.GET)
+//	public @ResponseBody Caterer querySearch(@RequestParam("id") String id) {
+	public ModelAndView caterSearch(@RequestParam("id") String id, @RequestParam("lat") String lat, @RequestParam("lng") String lng) {
+		try {
+			ModelAndView model = new ModelAndView();
+			model.setViewName("CatererDescription");
+			com.cater.dto.beans.Caterer cater = catererService.getCaterObject(id);
+			model.addObject("caterer", cater);
+			logger.info("Logger working..");
+			return model;
+//			return userservice.getCatererInfo(id);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		}
+	}
 	// check mail
 	@RequestMapping(value = "/template/mail", method = RequestMethod.GET)
 	public String checkMail() {
@@ -129,13 +153,13 @@ public class MainController {
 	public boolean catererOTPValidation(@RequestParam String userName,@RequestParam String otp) {
 		logger.info("Validating otp");
 		if(userName!=null){
-			Caterer c=catererService.getCatererByUserNameNOTP(userName,otp);
-			if(c!=null){
-				c.setIsDeleted(false);
-				catererService.saveCaterer(c, otp);
+//			Caterer c=catererService.getCatererByUserNameNOTP(userName,otp);
+//			if(c!=null){
+//				c.setIsDeleted(false);
+//				catererService.saveCaterer(c, otp);
 				return true;
 			}
-		}
+//		}
 		return false;
 	}
 }
