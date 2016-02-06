@@ -53,6 +53,25 @@ public class CatererController {
 	 * @param otp
 	 * @return
 	 */
+	@RequestMapping(value = "/caterer/CaterOTP", method = RequestMethod.POST)
+	public boolean catererOTPValidation(@RequestParam String userName,@RequestParam String otp) {
+		logger.info("Validating otp for username - "+userName);
+		if(userName!=null){
+			Caterer caterer=catererService.getCatererByUsernameAndOTP(userName, otp);
+			if(caterer!=null){
+				caterer.setIsDeleted(false);
+				catererService.saveCaterer(caterer);
+				return true;
+			}
+		}
+		return false;
+	}
+	/**
+	 * Validate otp entered by the user
+	 * @param email
+	 * @param otp
+	 * @return
+	 */
 	@RequestMapping(value = "/caterer/CatererAddressAdd", method = RequestMethod.POST)
 	public boolean addAddress(@RequestParam CatererAddress address,@RequestParam Caterer c) {
 		logger.info("Validating otp");

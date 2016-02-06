@@ -3,7 +3,7 @@
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <!-- Generated Dec 24, 2015 12:22:57 AM by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
-    <class name="com.cater.dto.beans.MasterCity" table="master_city" catalog="cater_db" optimistic-lock="version">
+    <class name="com.cater.dto.beans.MasterCity" table="master_city" optimistic-lock="version">
         <id name="cityId" type="java.lang.Long">
             <column name="city_id" />
             <generator class="identity" />

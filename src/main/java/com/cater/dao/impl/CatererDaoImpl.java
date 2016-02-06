@@ -55,7 +55,7 @@ public class CatererDaoImpl implements CatererDao {
 	 */
 	@SuppressWarnings("unchecked")
 	@Override
-	public Caterer getCatererByUserName(String username,String otp) {
+	public Caterer getCatererByUserNameAndOTP(String username,String otp) {
 		Session session = sessionFactory.openSession();
 		Criteria catererCriteria = session.createCriteria(Caterer.class);
 		catererCriteria.add(Restrictions.eq("username", username));

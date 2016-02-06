@@ -3,7 +3,7 @@
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <!-- Generated Dec 24, 2015 12:22:57 AM by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
-    <class name="com.cater.dto.beans.CatererLineContact" table="caterer_line_contact" catalog="cater_db" optimistic-lock="version">
+    <class name="com.cater.dto.beans.CatererLineContact" table="caterer_line_contact" optimistic-lock="version">
         <id name="id" type="java.lang.Long">
             <column name="id" />
             <generator class="identity" />

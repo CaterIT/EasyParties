@@ -26,6 +26,10 @@ public class CatererService {
 	@Autowired
 	CatererDao catererDao;
 
+	public boolean saveCaterer(Caterer caterer) {
+		com.cater.dto.beans.Caterer catererDto = new CatererConverter().convertToDto(caterer);
+		return catererDao.saveCaterer(catererDto);
+	}
 	public boolean saveCaterer(Caterer caterer,String otp) {
 		com.cater.dto.beans.Caterer catererDto = new CatererConverter().convertToDto(caterer);
 		catererDto.setOtp(otp);
@@ -52,5 +56,15 @@ public class CatererService {
 	public com.cater.dto.beans.Caterer getCaterObject(String id) {
 //		CatererConverter converter = new CatererConverter();
 		return catererDao.getCaterInfo(id);
+	}
+
+	public Caterer getCatererByUsernameAndOTP(String username,String otp) {
+		CatererConverter converter = new CatererConverter();
+		Caterer catererTos=null;
+		com.cater.dto.beans.Caterer caterer= catererDao.getCatererByUserNameAndOTP(username, otp);
+		if(caterer!=null){
+			catererTos=converter.convertFromDto(caterer);
+		}
+		return catererTos;
 	}
 }
