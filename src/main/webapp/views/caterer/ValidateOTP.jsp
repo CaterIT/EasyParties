@@ -16,10 +16,10 @@
 			alert("sa");
 			$("#validate").on("click",function(){
 				$.ajax({
-					url:"/caterer/CaterOTP",
-					data:"userName="+${userName},
+					url:"CaterOTP",
+					data:"userName=${userName}&otp="+$('#otp').val(),
 					success:function(data){
-						if(data==true){
+						if(data=="true"){
 							alert("Successfully validated");
 						}else{
 							alert("Please try again");

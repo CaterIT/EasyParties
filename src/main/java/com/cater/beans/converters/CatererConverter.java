@@ -29,6 +29,7 @@ public class CatererConverter {
 		converted.setOwnerName(caterer.getOwnerName());
 		converted.setUsername(caterer.getUsername());
 		converted.setPassword(caterer.getPassword());
+		converted.setIsDeleted(caterer.isIsDeleted());
 		Set<com.cater.tos.beans.CatererAddress> tempCatererAddressSet = new HashSet<com.cater.tos.beans.CatererAddress>();
 		caterer.getCatererAddresses().addAll(tempCatererAddressSet);
 //		tempCatererAddressSet.addAll(caterer.getCatererAddresses());

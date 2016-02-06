@@ -77,7 +77,7 @@ public class MailUtil {
 		}
 	}
 
-	public boolean sendOTPEmail(String name, String otp, String... email) {
+	public boolean sendOTPEmail(String name, String otp,String userName, String... email) {
 		try {
 			JavaMailSenderImpl mailSender = constructMailSender();
 			MimeMessage message = mailSender.createMimeMessage();
@@ -86,7 +86,7 @@ public class MailUtil {
 			for (String to : email)
 				helper.addTo(to);
 			helper.setBcc("armaankohli91@gmail.com");
-			helper.setText(MessageFormat.format(otp_msg, name, otp), true);
+			helper.setText(MessageFormat.format(otp_msg, name, otp,userName), true);
 			helper.setFrom(mailSender.getUsername());
 			helper.setSubject("Welcome - " + name);
 			mailSender.send(message);

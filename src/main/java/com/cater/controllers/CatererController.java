@@ -51,7 +51,7 @@ public class CatererController {
 	@RequestMapping(value = "/caterer/ValidateOTP", method = RequestMethod.GET)
 	public ModelAndView validateOTP(@RequestParam String userName) {
 		ModelAndView modelAndView=new ModelAndView();
-		modelAndView.setViewName("ValidateOTP");
+		modelAndView.setViewName("caterer/ValidateOTP");
 		modelAndView.addObject("userName", userName);
 		return modelAndView;
 	}
@@ -61,18 +61,18 @@ public class CatererController {
 	 * @param otp
 	 * @return
 	 */
-	@RequestMapping(value = "/caterer/CaterOTP", method = RequestMethod.POST)
-	public boolean catererOTPValidation(@RequestParam String userName,@RequestParam String otp) {
+	@RequestMapping(value = "/caterer/CaterOTP", method = RequestMethod.GET)
+	public @ResponseBody String catererOTPValidation(@RequestParam String userName,@RequestParam String otp) {
 		logger.info("Validating otp for username - "+userName);
 		if(userName!=null){
 			Caterer caterer=catererService.getCatererByUsernameAndOTP(userName, otp);
 			if(caterer!=null){
 				caterer.setIsDeleted(false);
 				catererService.saveCaterer(caterer);
-				return true;
+				return "true";
 			}
 		}
-		return false;
+		return "false";
 	}
 	/**
 	 * Validate otp entered by the user

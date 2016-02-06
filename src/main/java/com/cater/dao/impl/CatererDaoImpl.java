@@ -36,7 +36,7 @@ public class CatererDaoImpl implements CatererDao {
 		Session session = sessionFactory.openSession();
 		Transaction transaction = session.beginTransaction();
 		try {
-			session.save(caterer);
+			session.saveOrUpdate(caterer);
 			transaction.commit();
 		} catch (Exception e) {
 			transaction.rollback();
@@ -59,7 +59,7 @@ public class CatererDaoImpl implements CatererDao {
 		Session session = sessionFactory.openSession();
 		Criteria catererCriteria = session.createCriteria(Caterer.class);
 		catererCriteria.add(Restrictions.eq("username", username));
-		catererCriteria.add(Restrictions.eq("otp", username));
+		catererCriteria.add(Restrictions.eq("otp", otp));
 		List<Caterer> caterer = catererCriteria.list();
 		if (caterer != null && !caterer.isEmpty()) {
 			return caterer.get(0);

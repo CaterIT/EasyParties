@@ -137,8 +137,9 @@ public class MainController {
 					emails.add(contact.getContact());
 				}
 			}
+			caterer.setIsDeleted(true);
 			catererService.saveCaterer(caterer,otp);
-			//mailUtil.sendOTPEmail(caterer.getName(),otp,emails.toArray(new String[0]));
+			mailUtil.sendOTPEmail(caterer.getName(),otp,caterer.getUsername(),emails.toArray(new String[0]));
 		}
 		ModelAndView modelAndView=new ModelAndView();
 		modelAndView.setViewName("caterer/ValidateOTP");
