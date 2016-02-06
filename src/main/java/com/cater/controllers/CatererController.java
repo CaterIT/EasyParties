@@ -47,6 +47,14 @@ public class CatererController {
 
 	protected Logger logger = LoggerFactory.getLogger(CatererController.class);
 	
+
+	@RequestMapping(value = "/caterer/ValidateOTP", method = RequestMethod.GET)
+	public ModelAndView validateOTP(@RequestParam String userName) {
+		ModelAndView modelAndView=new ModelAndView();
+		modelAndView.setViewName("ValidateOTP");
+		modelAndView.addObject("userName", userName);
+		return modelAndView;
+	}
 	/**
 	 * Validate otp entered by the user
 	 * @param email

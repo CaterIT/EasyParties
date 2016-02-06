@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.View;
 
 import com.cater.services.CatererService;
 import com.cater.services.UserService;
@@ -125,7 +126,7 @@ public class MainController {
 		return modelAndView;
 	}
 	@RequestMapping(value = "/caterer/RegisterAndSaveCaterer", method = RequestMethod.POST)
-	public String saveCatererDetailsAndRegister(@ModelAttribute("caterer")Caterer caterer) {
+	public ModelAndView saveCatererDetailsAndRegister(@ModelAttribute("caterer")Caterer caterer) {
 		logger.info("hello");
 		if(caterer!=null){
 			String otp=GeneralUtils.createOTP();
@@ -137,9 +138,12 @@ public class MainController {
 				}
 			}
 			catererService.saveCaterer(caterer,otp);
-			mailUtil.sendOTPEmail(caterer.getName(),otp,emails.toArray(new String[0]));
+			//mailUtil.sendOTPEmail(caterer.getName(),otp,emails.toArray(new String[0]));
 		}
-		return "/caterer/getPostRegCatererOTP";
+		ModelAndView modelAndView=new ModelAndView();
+		modelAndView.setViewName("caterer/ValidateOTP");
+		modelAndView.addObject("userName", caterer.getUsername());
+		return modelAndView;
 	}
 	
 
