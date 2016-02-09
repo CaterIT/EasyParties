@@ -23,4 +23,9 @@ public interface CatererDao {
 	 * @return
 	 */
 	Caterer getCatererByUserNameAndOTP(String username, String otp);
+	/**
+	 * @param caterer
+	 * @return
+	 */
+	Caterer getCatererByUsernamePassword(Caterer caterer);
 }

@@ -6,6 +6,7 @@ package com.cater.services;
 import java.sql.SQLException;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,9 @@ import com.cater.utils.rsToXML;
  */
 @Service
 public class CatererService {
+
+	@Autowired
+	private HttpSession httpSession;
 
 	@Autowired
 	CatererDao catererDao;
@@ -66,5 +70,10 @@ public class CatererService {
 			catererTos=converter.convertFromDto(caterer);
 		}
 		return catererTos;
+	}
+	public Caterer getCatererByUsernameAndPassword(Caterer caterer){
+		CatererConverter converter = new CatererConverter();
+		caterer=converter.convertFromDto(catererDao.getCatererByUsernamePassword(converter.convertToDto(caterer)));
+		return caterer;
 	}
 }
