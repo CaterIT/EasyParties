@@ -58,7 +58,6 @@ public class CatererConverter {
 		{
 			CatererAddress convertedCatererAddress = new CatererAddress();
 		convertedCatererAddress.setId(caterAdd.getId());
-		convertedCatererAddress.setIsDeleted(caterAdd.isIsDeleted());
 		convertedCatererAddress.setLat(caterAdd.getLat());
 		convertedCatererAddress.setLng(caterAdd.getLng());
 		convertedCatererAddress.setAddressDetails(convertToDto(caterAdd.getAddressDetails()));

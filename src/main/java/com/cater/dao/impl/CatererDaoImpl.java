@@ -10,11 +10,15 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.cater.controllers.CatererController;
 import com.cater.dao.CatererDao;
 import com.cater.dto.beans.Caterer;
+import com.cater.dto.beans.CatererAddress;
 
 /**
  * @author armaank
@@ -25,6 +29,8 @@ public class CatererDaoImpl implements CatererDao {
 
 	@Autowired
 	SessionFactory sessionFactory;
+
+	protected Logger logger = LoggerFactory.getLogger(CatererController.class);
 
 	/*
 	 * (non-Javadoc)
@@ -124,7 +130,7 @@ public class CatererDaoImpl implements CatererDao {
 		Caterer result = (Caterer) session.createCriteria(Caterer.class);
 		return result.getDisplayName();
 	}
-	
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -133,10 +139,35 @@ public class CatererDaoImpl implements CatererDao {
 	@Override
 	public Caterer getCatererByUsernamePassword(Caterer caterer) {
 		Session session = sessionFactory.openSession();
-		Criteria catererCriteria = session.createCriteria(Caterer.class);
-		catererCriteria.add(Restrictions.eq("username", caterer.getUsername()));
-		catererCriteria.add(Restrictions.eq("password", caterer.getPassword()));
-		caterer=(Caterer) catererCriteria.uniqueResult();
+		try {
+			Criteria catererCriteria = session.createCriteria(Caterer.class);
+			catererCriteria.add(Restrictions.eq("username", caterer.getUsername()));
+			catererCriteria.add(Restrictions.eq("password", caterer.getPassword()));
+			caterer = (Caterer) catererCriteria.uniqueResult();
+		} catch (Exception exception) {
+			logger.error(exception.getMessage());
+		} finally {
+			session.close();
+		}
 		return caterer;
+	}
+
+	public boolean saveAddress(CatererAddress address) {
+		Session session = sessionFactory.openSession();
+		Transaction tx=session.beginTransaction();
+		try {
+			Long addressId=(Long) session.save(address.getAddressDetails());
+			address.getAddressDetails().setId(addressId);
+			session.save(address);
+			tx.commit();
+			return true;
+		} catch (Exception exception) {
+			tx.rollback();
+			logger.error(exception.getMessage());
+			return false;
+		} finally {
+			session.close();
+		}
+
 	}
 }

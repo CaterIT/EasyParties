@@ -12,8 +12,11 @@ import javax.xml.parsers.ParserConfigurationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.cater.beans.converters.AddressConverter;
 import com.cater.beans.converters.CatererConverter;
 import com.cater.dao.CatererDao;
+import com.cater.dto.beans.CatererAddress;
+import com.cater.tos.beans.AddressDetails;
 import com.cater.tos.beans.Caterer;
 import com.cater.utils.rsToXML;
 
@@ -75,5 +78,15 @@ public class CatererService {
 		CatererConverter converter = new CatererConverter();
 		caterer=converter.convertFromDto(catererDao.getCatererByUsernamePassword(converter.convertToDto(caterer)));
 		return caterer;
+	}
+	public boolean addCatererAddress(com.cater.tos.beans.CatererAddress catererAddressTos){
+		CatererConverter converter = new CatererConverter();
+		AddressConverter addressConverter=new AddressConverter();
+		CatererAddress address=new CatererAddress();
+		address.setAddressDetails(addressConverter.convertToDTO(catererAddressTos.getAddressDetails()));
+		address.setCaterer(converter.convertToDto(catererAddressTos.getCaterer()));
+		address.setLat(catererAddressTos.getLat());
+		address.setLng(catererAddressTos.getLng());
+		return catererDao.saveAddress(address);
 	}
 }

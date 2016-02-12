@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.cater.tos.beans.AddressDetails;
 import com.cater.tos.beans.Caterer;
 import com.cater.tos.beans.CatererAddress;
 import com.cater.tos.beans.CatererLineContact;
@@ -46,6 +47,9 @@ public class CatererController {
 	CatererService catererService;
 	@Autowired
 	MailUtil mailUtil;
+
+	@Autowired
+	HttpSession httpSession;
 
 	protected Logger logger = LoggerFactory.getLogger(CatererController.class);
 	
@@ -77,23 +81,30 @@ public class CatererController {
 		return "false";
 	}
 	/**
-	 * Validate otp entered by the user
+	 * @return
+	 */
+	@RequestMapping(value = "/caterer/AddCatererAddress", method = RequestMethod.GET)
+	public ModelAndView AddCatererAddress() {
+		ModelAndView modelAndView=new ModelAndView();
+		modelAndView.setViewName("caterer/AddCatererAddress");
+		CatererAddress addressDetails=new CatererAddress();
+		modelAndView.addObject("catererAddress", addressDetails);
+		modelAndView.addObject("caterer",(Caterer) httpSession.getAttribute("caterer"));
+		return modelAndView;
+	}
+
+	/**
+	 * Add address
 	 * @param email
 	 * @param otp
 	 * @return
 	 */
 	@RequestMapping(value = "/caterer/CatererAddressAdd", method = RequestMethod.POST)
-	public boolean addAddress(@RequestParam CatererAddress address,@RequestParam Caterer c) {
-		logger.info("Validating otp");
-		if(c!=null){
-			//Caterer c=catererService.getCatererByUserNameNOTP(userName,otp);
-			if(c!=null){
-				c.setIsDeleted(false);
-				//catererService.saveCaterer(c, otp);
-				return true;
-			}
-		}
-		return false;
+	public @ResponseBody String addAddress(@ModelAttribute("catererAddress") CatererAddress catererAddress) {
+		logger.info("Adding address");
+		catererAddress.setCaterer((Caterer) httpSession.getAttribute("caterer"));
+		catererService.addCatererAddress(catererAddress);
+		return "true";
 	}
 
 	/**
@@ -111,13 +122,13 @@ public class CatererController {
 	 * Login action
 	 */
 	@RequestMapping(value = "/caterer/Login", method = RequestMethod.POST)
-	public ModelAndView login(@ModelAttribute("caterer")Caterer caterer, HttpSession httpSession) {
+	public ModelAndView login(@ModelAttribute("caterer")Caterer caterer) {
 		logger.info("logging in");
 		ModelAndView modelAndView=new ModelAndView();
 		if(caterer!=null){
 			caterer=catererService.getCatererByUsernameAndPassword(caterer);
 			if(caterer!=null){
-				httpSession.setAttribute("Caterer", caterer);
+				httpSession.setAttribute("caterer", caterer);
 				modelAndView.setViewName("caterer/Profile");
 			}else{
 				modelAndView.setViewName("forward:/caterer/CatererLogin");
@@ -131,7 +142,7 @@ public class CatererController {
 	 * Logout action
 	 */
 	@RequestMapping(value = "/caterer/Logout", method = RequestMethod.GET)
-	public String logout(HttpSession httpSession) {
+	public String logout() {
 		logger.info("logging in");
 		httpSession.invalidate();
 		return "forward:/caterer/CatererLogin";
@@ -140,7 +151,7 @@ public class CatererController {
 	 * Profile page
 	 */
 	@RequestMapping(value = "/caterer/Profile", method = RequestMethod.GET)
-	public ModelAndView profile(HttpSession httpSession) {
+	public ModelAndView profile() {
 		ModelAndView modelAndView=new ModelAndView();
 		if(httpSession.getAttribute("Caterer")!=null){
 			modelAndView.addObject("caterer", httpSession.getAttribute("Caterer"));		
@@ -150,4 +161,5 @@ public class CatererController {
 		}
 		return modelAndView;
 	}
+
 }
